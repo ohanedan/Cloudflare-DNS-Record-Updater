@@ -1,0 +1,33 @@
+# https://taskfile.dev
+
+version: '1'
+
+tasks:
+  default:
+    cmds:
+      - echo "Check taskfile for build options."
+    silent: true
+
+  build-windows:
+    cmds:
+      - go build -o updater.exe
+    env:
+      GOOS: windows
+    silent: true
+
+  build-linux:
+    cmds:
+      - go build -o updater
+    env:
+      GOOS: linux
+    silent: true
+
+  tests:
+    cmds:
+      - go test ./... -count=1 -timeout 300s
+    env:
+
+  tests-v:
+    cmds:
+      - go test ./... -count=1 -timeout 300s -v
+    env:
