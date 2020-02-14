@@ -57,7 +57,7 @@ func (t *Data) initialize() (bool, error) {
 		if err != nil {
 			return false, err
 		}
-		return true, nil
+		return false, nil
 	}
 	bytes, err := ioutil.ReadFile(t.Path)
 	if err != nil {
