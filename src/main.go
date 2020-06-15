@@ -13,7 +13,7 @@ func main() {
 		return
 	}
 	if !filled {
-		fmt.Println("Please fill data. Path:", data.Path)
+		fmt.Println("Please fill data.", data.Path)
 		return
 	}
 	err = app.Execute(data.Data)

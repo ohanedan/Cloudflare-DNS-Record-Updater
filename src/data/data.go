@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
-	"os/user"
 	"path/filepath"
 )
 
@@ -34,14 +33,10 @@ func (t *Data) SaveData() error {
 }*/
 
 func (t *Data) initialize() (bool, error) {
-	usr, err := user.Current()
-	if err != nil {
-		return false, err
-	}
-	t.Path = filepath.Join(usr.HomeDir, ".cloudflare-dns-record-updater")
-	_, err = os.Stat(t.Path)
+	t.Path = filepath.Join("data.json")
+	_, err := os.Stat(t.Path)
 	if os.IsNotExist(err) {
-		fmt.Println("Creating data file. Path:", t.Path)
+		fmt.Println("Creating data file.", t.Path)
 		d := &Scheme{
 			XAuthEmail: "",
 			XAuthKey:   "",
