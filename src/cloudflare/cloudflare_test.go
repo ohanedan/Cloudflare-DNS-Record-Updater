@@ -11,7 +11,7 @@ func TestCloudflare_sendGetRequest(t *testing.T) {
 		t.Log("TestConfig missing.")
 		t.FailNow()
 	}
-	cf := NewCloudflare(cfg.XAuthEmail, cfg.XAuthKey)
+	cf := NewCloudflare(cfg.XAuthEmail, cfg.XAuthKey, cfg.BearerAuthKey, cfg.UseBearerAuth)
 	res, err := cf.sendGetRequest("zones?name="+cfg.Domain, nil)
 	if err != nil {
 		t.Error(err)
@@ -30,7 +30,7 @@ func TestCloudflare_sendGetRequest_WithResponse(t *testing.T) {
 		t.Log("TestConfig missing.")
 		t.FailNow()
 	}
-	cf := NewCloudflare(cfg.XAuthEmail, cfg.XAuthKey)
+	cf := NewCloudflare(cfg.XAuthEmail, cfg.XAuthKey, cfg.BearerAuthKey, cfg.UseBearerAuth)
 	zoneResult := zoneDataResultScheme{}
 	res, err := cf.sendGetRequest("zones?name="+cfg.Domain, &zoneResult)
 	if err != nil {
@@ -50,7 +50,7 @@ func TestCloudflare_sendGetRequest_WrongRequest(t *testing.T) {
 		t.Log("TestConfig missing.")
 		t.FailNow()
 	}
-	cf := NewCloudflare(cfg.XAuthEmail, cfg.XAuthKey)
+	cf := NewCloudflare(cfg.XAuthEmail, cfg.XAuthKey, cfg.BearerAuthKey, cfg.UseBearerAuth)
 	res, err := cf.sendGetRequest("whatisit", nil)
 	if err != nil {
 		t.Error(err)
@@ -70,7 +70,7 @@ func TestCloudflare_GetZoneInfo(t *testing.T) {
 		t.Log("TestConfig missing.")
 		t.FailNow()
 	}
-	cf := NewCloudflare(cfg.XAuthEmail, cfg.XAuthKey)
+	cf := NewCloudflare(cfg.XAuthEmail, cfg.XAuthKey, cfg.BearerAuthKey, cfg.UseBearerAuth)
 	info, err := cf.GetZoneInfo(cfg.Domain)
 	if err != nil {
 		t.Error(err)
@@ -85,7 +85,7 @@ func TestCloudflare_GetZoneInfo_WrongDomain(t *testing.T) {
 		t.Log("TestConfig missing.")
 		t.FailNow()
 	}
-	cf := NewCloudflare(cfg.XAuthEmail, cfg.XAuthKey)
+	cf := NewCloudflare(cfg.XAuthEmail, cfg.XAuthKey, cfg.BearerAuthKey, cfg.UseBearerAuth)
 	_, err := cf.GetZoneInfo("boyledomainmiolur")
 	if err == nil {
 		t.FailNow()
@@ -98,7 +98,7 @@ func TestCloudflare_GetDNSRecord(t *testing.T) {
 		t.Log("TestConfig missing.")
 		t.FailNow()
 	}
-	cf := NewCloudflare(cfg.XAuthEmail, cfg.XAuthKey)
+	cf := NewCloudflare(cfg.XAuthEmail, cfg.XAuthKey, cfg.BearerAuthKey, cfg.UseBearerAuth)
 	info, err := cf.GetZoneInfo(cfg.Domain)
 	if err != nil {
 		t.Error(err)
@@ -119,7 +119,7 @@ func TestCloudflare_orGetDNSRecd_NotRegisteredDNS(t *testing.T) {
 		t.Log("TestConfig missing.")
 		t.FailNow()
 	}
-	cf := NewCloudflare(cfg.XAuthEmail, cfg.XAuthKey)
+	cf := NewCloudflare(cfg.XAuthEmail, cfg.XAuthKey, cfg.BearerAuthKey, cfg.UseBearerAuth)
 	info, err := cf.GetZoneInfo(cfg.Domain)
 	if err != nil {
 		t.Error(err)
@@ -138,7 +138,7 @@ func TestCloudflare_sendPutRequest(t *testing.T) {
 		t.Log("TestConfig missing.")
 		t.FailNow()
 	}
-	cf := NewCloudflare(cfg.XAuthEmail, cfg.XAuthKey)
+	cf := NewCloudflare(cfg.XAuthEmail, cfg.XAuthKey, cfg.BearerAuthKey, cfg.UseBearerAuth)
 	zoneInfo, err := cf.GetZoneInfo(cfg.Domain)
 	if err != nil {
 		t.Error(err)
@@ -179,7 +179,7 @@ func TestCloudflare_SetDNSRecord(t *testing.T) {
 		t.Log("TestConfig missing.")
 		t.FailNow()
 	}
-	cf := NewCloudflare(cfg.XAuthEmail, cfg.XAuthKey)
+	cf := NewCloudflare(cfg.XAuthEmail, cfg.XAuthKey, cfg.BearerAuthKey, cfg.UseBearerAuth)
 	zoneInfo, err := cf.GetZoneInfo(cfg.Domain)
 	if err != nil {
 		t.Error(err)

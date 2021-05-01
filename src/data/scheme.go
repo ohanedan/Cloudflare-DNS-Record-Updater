@@ -8,9 +8,11 @@ type Data struct {
 
 //Scheme is the scheme of the data type
 type Scheme struct {
-	XAuthEmail string `json:"x_auth_email"`
-	XAuthKey   string `json:"x_auth_key"`
-	Domain     string `json:"domain"`
-	Record     string `json:"record"`
-	Proxied    bool   `json:"proxied"`
+	XAuthEmail    string `json:"x_auth_email"`
+	XAuthKey      string `json:"x_auth_key"`
+	Domain        string `json:"domain"`
+	Record        string `json:"record"`
+	Proxied       bool   `json:"proxied"`
+	UseBearerAuth bool   `json:"use_bearer_auth"`
+	BearerAuthKey string `json:"bearer_auth_key"`
 }

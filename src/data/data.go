@@ -38,11 +38,13 @@ func (t *Data) initialize() (bool, error) {
 	if os.IsNotExist(err) {
 		fmt.Println("Creating data file.", t.Path)
 		d := &Scheme{
-			XAuthEmail: "",
-			XAuthKey:   "",
-			Domain:     "",
-			Record:     "",
-			Proxied:    false,
+			XAuthEmail:    "",
+			XAuthKey:      "",
+			Domain:        "",
+			Record:        "",
+			UseBearerAuth: false,
+			BearerAuthKey: "",
+			Proxied:       false,
 		}
 		json, err := json.MarshalIndent(d, "", " ")
 		if err != nil {
@@ -62,8 +64,13 @@ func (t *Data) initialize() (bool, error) {
 	if err != nil {
 		return false, err
 	}
-	if t.Data.XAuthEmail == "" || t.Data.Domain == "" ||
-		t.Data.XAuthKey == "" || t.Data.Record == "" {
+	if t.Data.Domain == "" || t.Data.Record == "" {
+		return false, nil
+	}
+	if t.Data.UseBearerAuth && t.Data.BearerAuthKey == "" {
+		return false, nil
+	}
+	if !t.Data.UseBearerAuth && (t.Data.XAuthEmail == "" || t.Data.XAuthKey == "") {
 		return false, nil
 	}
 	return true, nil

@@ -14,7 +14,7 @@ func Execute(data *data.Scheme) error {
 		return err
 	}
 
-	cf := cloudflare.NewCloudflare(data.XAuthEmail, data.XAuthKey)
+	cf := cloudflare.NewCloudflare(data.XAuthEmail, data.XAuthKey, data.BearerAuthKey, data.UseBearerAuth)
 	zoneInfo, err := cf.GetZoneInfo(data.Domain)
 	if err != nil {
 		return err

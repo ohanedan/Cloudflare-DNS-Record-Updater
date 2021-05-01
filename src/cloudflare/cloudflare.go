@@ -9,11 +9,16 @@ import (
 )
 
 //NewCloudflare creates Cloudflare instance
-func NewCloudflare(XAuthEmail string, XAuthKey string) *Cloudflare {
+func NewCloudflare(XAuthEmail string, XAuthKey string, BearerAuthKey string, UseBearerAuth bool) *Cloudflare {
 	client := &http.Client{}
 	headers := make(map[string]string)
-	headers["X-Auth-Email"] = XAuthEmail
-	headers["X-Auth-Key"] = XAuthKey
+	if UseBearerAuth {
+		headers["Authorization"] = "Bearer " + BearerAuthKey
+	} else {
+		headers["X-Auth-Email"] = XAuthEmail
+		headers["X-Auth-Key"] = XAuthKey
+	}
+
 	headers["Content-Type"] = "application/json"
 	d := &Cloudflare{
 		Client:  client,
@@ -79,6 +84,7 @@ func (cf *Cloudflare) sendGetRequest(url string, resultScheme interface{}) (*Res
 	for header, val := range cf.Headers {
 		req.Header.Add(header, val)
 	}
+
 	resp, err := cf.Client.Do(req)
 	if err != nil {
 		return nil, err

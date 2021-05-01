@@ -1,11 +1,16 @@
 # https://taskfile.dev
 
-version: '1'
+version: '2'
 
 tasks:
   default:
     cmds:
       - echo "Check taskfile for build options."
+    silent: true
+
+  build:
+    cmds:
+      - go build -o updater
     silent: true
 
   build-windows:
